@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Happy Birthday Devendhu 🎂</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;700&family=Manrope:wght@400;600;700&family=Dancing+Script:wght@600;700&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--pink:#ff6b9d;--lav:#c084fc;--gold:#f4b740;--dark:#1a0a2e;--mid:#4a3560}
+html,body{height:100%;overflow:hidden;font-family:'Manrope',sans-serif}
+
+/* ── Section system ── */
+.pg{position:fixed;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  opacity:0;pointer-events:none;transition:opacity .55s ease;overflow-y:auto;overflow-x:hidden;padding:2rem 1rem 3rem}
+.pg.active{opacity:1;pointer-events:all}
+
+/* ── Page indicator ── */
+#nav{position:fixed;top:1rem;left:50%;transform:translateX(-50%);display:flex;gap:.4rem;z-index:100}
+.nd{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.25);transition:.3s}
+.nd.on{background:var(--pink)}
+.nd.dark{background:rgba(124,58,237,.25)}
+.nd.dark.on{background:var(--pink)}
+
+/* Back btn */
+#backBtn{position:fixed;top:1.1rem;left:1.2rem;z-index:100;background:rgba(255,255,255,.15);
+  border:1px solid rgba(255,255,255,.25);border-radius:999px;padding:.3rem .9rem;
+  font-size:.78rem;color:rgba(255,255,255,.7);cursor:pointer;display:none;transition:.2s}
+#backBtn:hover{color:#fff}
+#backBtn.show{display:block}
+#backBtn.light{background:rgba(0,0,0,.07);border-color:rgba(0,0,0,.1);color:var(--mid)}
+#backBtn.light:hover{color:var(--dark)}
+
+/* Shared animations */
+@keyframes fadeRise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+@keyframes popIn{0%{transform:scale(0);opacity:0}100%{transform:scale(1);opacity:1}}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+@keyframes twinkle{0%,100%{opacity:.15;transform:scale(.8)}50%{opacity:.7;transform:scale(1.2)}}
+@keyframes floatUp{0%{transform:translateY(110vh) rotate(0deg);opacity:0}10%{opacity:.2}90%{opacity:.2}100%{transform:translateY(-20vh) rotate(720deg);opacity:0}}
+@keyframes drift{0%,100%{transform:translateY(0) rotate(-6deg)}50%{transform:translateY(-12px) rotate(6deg)}}
+@keyframes heartPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.25)}}
+@keyframes shimmer{0%{transform:translateX(-100%)}100%{transform:translateX(100%)}}
+@keyframes spinR{from{transform:rotate(0)}to{transform:rotate(-360deg)}}
+@keyframes orbFloat{0%,100%{transform:translate(0,0)}50%{transform:translate(20px,-20px)}}
+@keyframes floatPart{0%{transform:translateY(110vh) scale(0);opacity:0}10%{opacity:.7;transform:translateY(90vh) scale(1)}90%{opacity:.6}100%{transform:translateY(-20vh) scale(.5);opacity:0}}
+@keyframes confettiFall{0%{transform:translateY(-40px) rotate(0);opacity:0}10%{opacity:1}90%{opacity:.8}100%{transform:translateY(110vh) rotate(720deg);opacity:0}}
+@keyframes rotateHint{0%,100%{transform:rotate(-15deg)}50%{transform:rotate(15deg)}}
+@keyframes revealImg{to{opacity:1;transform:translateY(0) scale(1)}}
+
+/* Shared card */
+.card{background:rgba(255,255,255,.72);backdrop-filter:blur(24px);border:1px solid rgba(255,255,255,.9);
+  border-radius:2.5rem;padding:2.5rem 2rem;max-width:520px;width:92%;
+  box-shadow:0 32px 80px rgba(124,58,237,.13);text-align:center}
+
+/* Shared btn */
+.btn-main{display:inline-flex;align-items:center;gap:.5rem;padding:.9rem 2.2rem;border-radius:999px;
+  font-weight:700;font-size:1rem;font-family:'Manrope',sans-serif;border:none;cursor:pointer;
+  text-decoration:none;transition:transform .2s,box-shadow .2s}
+.btn-main:hover{transform:scale(1.06) translateY(-2px)}
+.btn-pink{background:linear-gradient(135deg,#ff6b9d,#c084fc);color:#fff;box-shadow:0 10px 30px rgba(255,107,157,.4)}
+.btn-pink:hover{box-shadow:0 16px 40px rgba(255,107,157,.55)}
+.btn-purple{background:linear-gradient(135deg,#7c3aed,#c084fc);color:#fff;box-shadow:0 10px 30px rgba(124,58,237,.35)}
+.btn-gold{background:linear-gradient(135deg,#f4b740,#ff6b9d);color:#fff;box-shadow:0 10px 30px rgba(244,183,64,.35)}
+
+/* Fixed bg layers */
+.bg-layer{position:fixed;inset:0;pointer-events:none;z-index:-1;transition:opacity .55s ease;opacity:0}
+.bg-layer.show{opacity:1}
+#bg1{background:linear-gradient(135deg,#fff0f8,#f3e8ff 40%,#fce7f3 70%,#fffbf0)}
+#bg2{background:linear-gradient(145deg,#1a0a2e,#2d1065 50%,#1e0a3c)}
+#bg3{background:linear-gradient(160deg,#fdf2ff,#fff0f8 45%,#f0f9ff)}
+#bg4{background:linear-gradient(160deg,#1a0a2e,#2a0a1e 35%,#1c1440 70%,#0f0a1a)}
+#bg5{background:linear-gradient(160deg,#fff0fb,#fdf4ff 40%,#fff8f0 80%,#f0f9ff)}
+
+/* ══════════ PAGE 1 ══════════ */
+.star-bg{position:fixed;pointer-events:none;font-size:1.2rem;animation:twinkle ease-in-out infinite;z-index:0}
+.confetti-bg{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+.p1-badge{font-size:3.8rem;display:block;animation:popIn .6s cubic-bezier(.34,1.56,.64,1) both}
+.p1-label{font-size:.72rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--lav);
+  opacity:0;animation:fadeRise .7s ease forwards;animation-delay:.4s;margin:.4rem 0}
+.p1-name{font-family:'Fraunces',serif;font-size:clamp(2.2rem,6vw,3.4rem);font-weight:700;color:var(--dark);
+  line-height:1.1;margin:.4rem 0 1rem;min-height:1.2em;opacity:0;animation:fadeRise .8s ease forwards;animation-delay:.7s}
+.p1-cur{display:inline-block;width:3px;height:.85em;background:var(--pink);margin-left:3px;vertical-align:middle;animation:blink .75s step-end infinite}
+.p1-msgs{display:flex;flex-direction:column;gap:.6rem;margin-bottom:1.8rem}
+.p1-msg{font-size:1rem;color:var(--mid);line-height:1.6;opacity:0;transform:translateY(18px);transition:opacity .6s,transform .6s}
+.p1-msg.vis{opacity:1;transform:translateY(0)}
+.p1-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;opacity:0;animation:fadeRise .7s ease forwards;animation-delay:2.4s}
+.btn-yes{background:linear-gradient(135deg,#ff6b9d,#c084fc);color:#fff;box-shadow:0 8px 28px rgba(255,107,157,.35)}
+.btn-no{background:#fff;color:var(--mid);border:2px solid rgba(192,132,252,.3)}
+.p1-footer{margin-top:1.4rem;font-size:.78rem;color:var(--lav);opacity:0;animation:fadeRise .7s ease forwards;animation-delay:2.8s}
+
+/* ══════════ PAGE 2 ══════════ */
+.p2-particle{position:absolute;border-radius:50%;animation:floatPart linear infinite}
+.p2-wrap{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+.p2-card{background:rgba(255,255,255,.07);backdrop-filter:blur(32px);border:1px solid rgba(255,255,255,.15);
+  border-radius:2.5rem;padding:2.5rem 2rem;max-width:560px;width:92%;
+  box-shadow:0 40px 100px rgba(0,0,0,.4);text-align:center;position:relative;z-index:1}
+.p2-imgbox{width:100%;border-radius:1.6rem;overflow:hidden;margin-bottom:1.8rem;position:relative;
+  aspect-ratio:1;max-height:280px;opacity:0;transform:translateY(30px) scale(.96);
+  animation:revealImg .9s cubic-bezier(.22,1,.36,1) forwards;animation-delay:.2s}
+.p2-imgbox img{width:100%;height:100%;object-fit:cover;display:block}
+.p2-glow{position:absolute;inset:0;background:linear-gradient(180deg,transparent 60%,rgba(45,16,101,.6))}
+.p2-badge{display:inline-flex;align-items:center;gap:.4rem;background:rgba(244,183,64,.15);
+  border:1px solid rgba(244,183,64,.35);border-radius:999px;padding:.3rem .9rem;
+  font-size:.72rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);
+  margin-bottom:.8rem;opacity:0;animation:fadeRise .7s ease forwards;animation-delay:.5s}
+.p2-h1{font-family:'Fraunces',serif;font-size:clamp(2.5rem,7vw,4rem);font-weight:700;color:#fff;
+  line-height:1.1;margin-bottom:.5rem;opacity:0;animation:fadeRise .8s ease forwards;animation-delay:.8s}
+.p2-hl{background:linear-gradient(90deg,#ff6b9d,#c084fc);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.p2-sub{font-size:1rem;color:rgba(255,255,255,.65);line-height:1.7;margin-bottom:1.6rem;
+  opacity:0;animation:fadeRise .7s ease forwards;animation-delay:1.2s}
+.p2-pills{display:flex;flex-wrap:wrap;gap:.6rem;justify-content:center;margin-bottom:1.6rem;
+  opacity:0;animation:fadeRise .7s ease forwards;animation-delay:1.5s}
+.pill{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);border-radius:999px;
+  padding:.5rem 1.2rem;font-size:.85rem;color:rgba(255,255,255,.85);cursor:pointer;
+  transition:background .2s,transform .2s;font-family:'Manrope',sans-serif}
+.pill:hover,.pill.on{background:rgba(255,107,157,.25);border-color:rgba(255,107,157,.5);transform:scale(1.04)}
+.p2-next{opacity:0;animation:fadeRise .7s ease forwards;animation-delay:1.8s}
+.p2-sticker{position:absolute;font-size:2.2rem;pointer-events:none;animation:drift ease-in-out infinite}
+
+/* ══════════ PAGE 3 ══════════ */
+.p3-orb{position:fixed;border-radius:50%;filter:blur(80px);opacity:.35;pointer-events:none;z-index:0;animation:orbFloat ease-in-out infinite}
+.p3-head{position:relative;z-index:1;text-align:center;margin-bottom:2rem;opacity:0;animation:fadeRise .8s ease forwards;animation-delay:.1s}
+.p3-label{font-size:.72rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--lav);margin-bottom:.4rem;display:block}
+.p3-head h2{font-family:'Fraunces',serif;font-size:clamp(1.8rem,5vw,2.8rem);color:var(--dark);font-weight:700;line-height:1.15}
+.p3-head p{margin-top:.4rem;font-size:.95rem;color:var(--mid)}
+.prog{display:flex;gap:.4rem;justify-content:center;margin-bottom:.8rem;position:relative;z-index:1}
+.pd{width:8px;height:8px;border-radius:50%;background:rgba(192,132,252,.25);transition:.3s}
+.pd.done{background:var(--pink);transform:scale(1.2)}
+.cards-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1.4rem;
+  max-width:860px;width:100%;position:relative;z-index:1}
+.flip-card{perspective:1200px;height:370px;cursor:pointer;opacity:0;transform:translateY(30px);animation:fadeRise .7s ease forwards}
+.flip-card:nth-child(1){animation-delay:.3s}
+.flip-card:nth-child(2){animation-delay:.5s}
+.flip-card:nth-child(3){animation-delay:.7s}
+.flip-inner{position:relative;width:100%;height:100%;transform-style:preserve-3d;transition:transform .7s cubic-bezier(.4,.2,.2,1)}
+.flip-card.flipped .flip-inner{transform:rotateY(180deg)}
+.flip-front,.flip-back{position:absolute;inset:0;backface-visibility:hidden;border-radius:1.8rem;overflow:hidden}
+.flip-front{background:#fff;border:1.5px solid rgba(192,132,252,.2);box-shadow:0 20px 50px rgba(124,58,237,.1);display:flex;flex-direction:column}
+.flip-front .img-area{flex:1;overflow:hidden}
+.flip-front img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
+.flip-card:hover .flip-front img{transform:scale(1.04)}
+.flip-hint{padding:.9rem;text-align:center;font-size:.82rem;font-weight:700;color:var(--lav);
+  background:linear-gradient(180deg,#fff,#fdf4ff);display:flex;align-items:center;justify-content:center;gap:.3rem}
+.hint-icon{font-size:1.1rem;animation:rotateHint 2s ease-in-out infinite}
+.flip-back{transform:rotateY(180deg);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2rem;text-align:center}
+.flip-back .cn{font-size:2rem;margin-bottom:.5rem}
+.flip-back p{font-size:1rem;line-height:1.7;color:#fff;font-weight:500}
+.flip-back button{margin-top:1.2rem;background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.4);
+  border-radius:999px;padding:.4rem 1.1rem;font-size:.8rem;color:#fff;cursor:pointer;font-family:'Manrope',sans-serif}
+.flip-back button:hover{background:rgba(255,255,255,.3)}
+.p3-next{position:relative;z-index:1;margin-top:2.5rem;text-align:center;opacity:0;animation:fadeRise .7s ease forwards;animation-delay:1.2s}
+#p3hint{font-size:.85rem;color:var(--mid);margin-bottom:.7rem}
+</style>
+</head>
+<body>
+
+<!-- Fixed backgrounds -->
+<div id="bg1" class="bg-layer show"></div>
+<div id="bg2" class="bg-layer"></div>
+<div id="bg3" class="bg-layer"></div>
+<div id="bg4" class="bg-layer"></div>
+<div id="bg5" class="bg-layer"></div>
+
+<!-- Nav dots -->
+<div id="nav">
+  <div class="nd dark on" id="d0"></div>
+  <div class="nd dark" id="d1"></div>
+  <div class="nd dark" id="d2"></div>
+  <div class="nd dark" id="d3"></div>
+  <div class="nd dark" id="d4"></div>
+</div>
+<button id="backBtn" onclick="goBack()">← back</button>
+
+<!-- ══ PAGE 1 ══ -->
+<section class="pg active" id="pg0">
+  <div class="confetti-bg" id="cWrap"></div>
+  <div class="star-bg" style="top:8%;left:7%;animation-duration:2.1s">✦</div>
+  <div class="star-bg" style="top:15%;right:9%;animation-duration:2.8s;animation-delay:.5s">✧</div>
+  <div class="star-bg" style="top:75%;left:5%;animation-duration:2.4s;animation-delay:1s">✦</div>
+  <div class="star-bg" style="top:80%;right:6%;animation-duration:3s;animation-delay:.3s">✧</div>
+  <div class="card" style="position:relative;z-index:1">
+    <span class="p1-badge">🎂</span>
+    <p class="p1-label">A little note for you</p>
+    <h1 class="p1-name"><span id="nText"></span><span class="p1-cur" id="nCur"></span></h1>
+    <div class="p1-msgs">
+      <p class="p1-msg" id="m0">✨ It's your special day.</p>
+      <p class="p1-msg" id="m1">🎁 I made a little surprise just for you.</p>
+      <p class="p1-msg" id="m2">🌸 Ready to open it?</p>
+    </div>
+    <div class="p1-btns">
+      <button class="btn-main btn-yes" onclick="goTo(1)">Yes! 🎉</button>
+      <button class="btn-main btn-no" onclick="goTo(1)">No 🙈</button>
+    </div>
+    <p class="p1-footer">Made with 💖 just for you</p>
+  </div>
+</section>
+
+<!-- ══ PAGE 2 ══ -->
+<section class="pg" id="pg1">
+  <div class="p2-wrap" id="pWrap"></div>
+  <div class="p2-sticker" style="top:6%;right:5%;animation-duration:3s">🎈</div>
+  <div class="p2-sticker" style="top:10%;left:4%;animation-duration:3.5s;animation-delay:.8s">⭐</div>
+  <div class="p2-sticker" style="bottom:8%;left:5%;animation-duration:2.8s;animation-delay:.3s">🎊</div>
+  <div class="p2-sticker" style="bottom:12%;right:4%;animation-duration:4s;animation-delay:1s">🌟</div>
+  <div class="p2-card">
+    <div class="p2-imgbox"><img src="p1.jpg" alt="Celebration"/><div class="p2-glow"></div></div>
+    <span class="p2-badge">🎉 Surprise!</span>
+    <h2 class="p2-h1">Happy<br/><span class="p2-hl">Birthday!</span></h2>
+    <p class="p2-sub">A tiny celebration page made with<br/>lots and lots of love 💜</p>
+    <div class="p2-pills">
+      <button class="pill" onclick="tPill(this)">🔆 Turn on the lights</button>
+      <button class="pill" onclick="tPill(this)">🎵 Set the mood</button>
+      <button class="pill" onclick="tPill(this)">🎀 Decorate the room</button>
+      <button class="pill" onclick="tPill(this)">🎈 Release balloons</button>
+      <button class="pill" onclick="tPill(this)">🎂 Cut the cake</button>
+    </div>
+    <div class="p2-next"><button class="btn-main btn-pink" onclick="goTo(2)">Flip Birthday Wishes ✨</button></div>
+  </div>
+</section>
+
+<!-- ══ PAGE 3 ══ -->
+<section class="pg" id="pg2" style="justify-content:flex-start;padding-top:3.5rem">
+  <div class="p3-orb" style="width:400px;height:400px;background:#e879f9;top:-100px;right:-100px;animation-duration:8s"></div>
+  <div class="p3-orb" style="width:300px;height:300px;background:#f9a8d4;bottom:-50px;left:-80px;animation-duration:10s;animation-delay:2s"></div>
+  <div class="p3-head">
+    <span class="p3-label">✨ Flip these birthday wishes</span>
+    <h2>Each card hides<br/>a little message 💌</h2>
+    <p>Tap any card to reveal</p>
+  </div>
+  <div class="prog"><div class="pd" id="pd0"></div><div class="pd" id="pd1"></div><div class="pd" id="pd2"></div></div>
+  <div class="cards-grid">
+    <div class="flip-card" id="fc0" onclick="flipC(0)">
+      <div class="flip-inner">
+        <div class="flip-front"><div class="img-area"><img src="p2.jpg" alt="Wish"/></div>
+          <div class="flip-hint"><span class="hint-icon">💫</span> Tap to reveal wish</div></div>
+        <div class="flip-back" style="background:linear-gradient(135deg,#c084fc,#ff6b9d)">
+          <div class="cn">🌸</div><p>May your day be filled with laughter, love, and small moments that feel unforgettable.</p>
+          <button onclick="event.stopPropagation();flipC(0)">flip back ↩</button></div>
+      </div>
+    </div>
+    <div class="flip-card" id="fc1" onclick="flipC(1)">
+      <div class="flip-inner">
+        <div class="flip-front"><div class="img-area"><img src="p3.jpg" alt="Wish"/></div>
+          <div class="flip-hint"><span class="hint-icon">💫</span> Tap to reveal wish</div></div>
+        <div class="flip-back" style="background:linear-gradient(135deg,#7c3aed,#60a5fa)">
+          <div class="cn">✨</div><p>I hope this year brings calm, confidence, good surprises, and people who cheer for you loudly.</p>
+          <button onclick="event.stopPropagation();flipC(1)">flip back ↩</button></div>
+      </div>
+    </div>
+    <div class="flip-card" id="fc2" onclick="flipC(2)">
+      <div class="flip-inner">
+        <div class="flip-front"><div class="img-area"><img src="p4.jpg" alt="Wish"/></div>
+          <div class="flip-hint"><span class="hint-icon">💫</span> Tap to reveal wish</div></div>
+        <div class="flip-back" style="background:linear-gradient(135deg,#f59e0b,#ef4444)">
+          <div class="cn">🌟</div><p>You deserve joy that feels easy, memories that stay warm, and a year that treats you gently.</p>
+          <button onclick="event.stopPropagation();flipC(2)">flip back ↩</button></div>
+      </div>
+    </div>
+  </div>
+  <div class="p3-next">
+    <p id="p3hint" style="margin-bottom:.7rem">Flip all cards to continue ✨</p>
+    <button class="btn-main btn-purple" onclick="goTo(3)">Open Final Letter 💌</button>
+  </div>
+</section>
+
+<!-- -- PAGE 4 -- -->
+<section class="pg" id="pg3" style="justify-content:flex-start;padding-top:3.5rem">
+  <div class="confetti-bg" id="sWrap"></div>
+  <div class="p2-sticker" style="top:8%;left:5%;animation-duration:3.2s;font-size:1.8rem">??</div>
+  <div class="p2-sticker" style="top:15%;right:6%;animation-duration:4s;animation-delay:1s;font-size:1.8rem">?</div>
+  <div class="p2-sticker" style="bottom:10%;left:6%;animation-duration:3.5s;animation-delay:.5s;font-size:1.8rem">??</div>
+  <div style="position:relative;z-index:1;text-align:center;margin-bottom:1.8rem;opacity:0;animation:fadeRise .8s ease forwards;animation-delay:.2s">
+    <span style="font-size:.72rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:.4rem">?? Final Letter</span>
+    <h2 style="font-family:'Fraunces',serif;font-size:clamp(1.8rem,5vw,2.6rem);color:#fff;font-weight:700;line-height:1.2">A message from<br/>the heart ??</h2>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;max-width:540px;width:100%;position:relative;z-index:1;margin-bottom:2rem">
+    <div style="border-radius:1.4rem;overflow:hidden;aspect-ratio:1;border:2px solid rgba(255,255,255,.1);box-shadow:0 20px 50px rgba(0,0,0,.4);opacity:0;transform:translateY(30px) scale(.94);animation:revealImg .9s cubic-bezier(.22,1,.36,1) forwards;animation-delay:.3s">
+      <img src="p5.jpg" alt="Celebration" style="width:100%;height:100%;object-fit:cover;display:block"/></div>
+    <div style="border-radius:1.4rem;overflow:hidden;aspect-ratio:1;border:2px solid rgba(255,255,255,.1);box-shadow:0 20px 50px rgba(0,0,0,.4);opacity:0;transform:translateY(30px) scale(.94);animation:revealImg .9s cubic-bezier(.22,1,.36,1) forwards;animation-delay:.5s;margin-top:1.4rem">
+      <img src="p6.jpg" alt="Celebration" style="width:100%;height:100%;object-fit:cover;display:block"/></div>
+  </div>
+  <div style="max-width:540px;width:100%;background:rgba(255,255,255,.06);backdrop-filter:blur(30px);border:1px solid rgba(255,255,255,.12);border-radius:2rem;padding:2.2rem 1.8rem;box-shadow:0 40px 80px rgba(0,0,0,.35);position:relative;z-index:1;opacity:0;animation:fadeRise .8s ease forwards;animation-delay:.7s">
+    <div style="font-size:.82rem;color:rgba(255,255,255,.45);margin-bottom:1rem;display:flex;align-items:center;gap:.4rem">??? With lots of love</div>
+    <div style="font-family:'Dancing Script',cursive;font-size:1.6rem;color:var(--pink);margin-bottom:1rem">Dear Devendhu,</div>
+    <div style="height:1px;background:rgba(255,255,255,.1);margin:1rem 0"></div>
+    <div style="font-size:.97rem;line-height:1.85;color:rgba(255,255,255,.8)">
+      <p style="opacity:0;transform:translateY(12px);animation:fadeRise .7s ease forwards;animation-delay:1s">On your special day, just know that you are truly one of a kind. Your smile, your vibe, your presence � it all makes the world a little better.</p>
+      <p style="margin-top:.9rem;opacity:0;transform:translateY(12px);animation:fadeRise .7s ease forwards;animation-delay:1.4s">Wishing you a day as wonderful as you are. May this year bring you everything. ??</p>
+      <p style="margin-top:.9rem;opacity:0;transform:translateY(12px);animation:fadeRise .7s ease forwards;animation-delay:1.8s">You deserve good people, beautiful memories, and the kind of happiness that stays. ??</p>
+    </div>
+    <div style="height:1px;background:rgba(255,255,255,.1);margin:1.2rem 0"></div>
+    <div style="font-family:'Dancing Script',cursive;font-size:1.2rem;color:var(--lav);opacity:0;animation:fadeRise .7s ease forwards;animation-delay:2.2s">With all my love,</div>
+    <div style="font-family:'Dancing Script',cursive;font-size:1.5rem;color:#fff;font-weight:700;margin-top:.3rem;opacity:0;animation:fadeRise .7s ease forwards;animation-delay:2.5s">Always cheering for you ?</div>
+  </div>
+  <div style="margin-top:2rem;position:relative;z-index:1;opacity:0;animation:fadeRise .7s ease forwards;animation-delay:2.8s">
+    <button class="btn-main btn-gold" onclick="goTo(4)">The Final Surprise ??</button>
+  </div>
+</section>
+
+<!-- -- PAGE 5 -- -->
+<section class="pg" id="pg4">
+  <div class="confetti-bg" id="c5Wrap"></div>
+  <div class="p2-sticker" style="top:8%;left:6%;animation-duration:2.1s;font-size:1.4rem">?</div>
+  <div class="p2-sticker" style="top:12%;right:8%;animation-duration:2.8s;animation-delay:.6s;font-size:1.4rem">?</div>
+  <div class="p2-sticker" style="bottom:12%;left:5%;animation-duration:2.3s;animation-delay:1.4s;font-size:1.4rem">??</div>
+  <div class="p2-sticker" style="bottom:8%;right:6%;animation-duration:3.2s;animation-delay:.8s;font-size:1.4rem">?</div>
+  <div style="position:relative;z-index:1;text-align:center;max-width:500px;width:95%">
+    <span style="font-size:5rem;display:block;opacity:0;animation:popIn .8s cubic-bezier(.34,1.56,.64,1) forwards;animation-delay:.1s">??</span>
+    <div style="margin:1rem 0 .5rem;opacity:0;animation:fadeRise .6s ease forwards;animation-delay:.5s">
+      <span style="font-size:.72rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--lav);display:block;margin-bottom:.4rem">?? Happy Birthday</span>
+      <div style="font-family:'Fraunces',serif;font-size:clamp(2rem,6vw,3.2rem);font-weight:700;line-height:1.1;background:linear-gradient(90deg,var(--pink),var(--lav));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;min-height:1.2em">
+        <span id="n5Text"></span><span class="p1-cur" id="n5Cur"></span>
+      </div>
+    </div>
+    <div style="display:flex;justify-content:center;gap:.5rem;margin:.8rem 0 1.2rem;opacity:0;animation:fadeRise .6s ease forwards;animation-delay:1.4s">
+      <span style="font-size:1.4rem;animation:heartPulse 1.4s ease-in-out infinite;animation-delay:0s">??</span>
+      <span style="font-size:1.4rem;animation:heartPulse 1.4s ease-in-out infinite;animation-delay:.2s">??</span>
+      <span style="font-size:1.4rem;animation:heartPulse 1.4s ease-in-out infinite;animation-delay:.4s">??</span>
+      <span style="font-size:1.4rem;animation:heartPulse 1.4s ease-in-out infinite;animation-delay:.6s">??</span>
+      <span style="font-size:1.4rem;animation:heartPulse 1.4s ease-in-out infinite;animation-delay:.8s">??</span>
+      <span style="font-size:1.4rem;animation:heartPulse 1.4s ease-in-out infinite;animation-delay:1s">??</span>
+      <span style="font-size:1.4rem;animation:heartPulse 1.4s ease-in-out infinite;animation-delay:1.2s">??</span>
+    </div>
+    <div style="background:rgba(255,255,255,.72);backdrop-filter:blur(20px);border:1.5px solid rgba(255,255,255,.9);border-radius:2rem;padding:1.8rem;box-shadow:0 24px 60px rgba(124,58,237,.1);margin-bottom:1.6rem;opacity:0;animation:fadeRise .8s ease forwards;animation-delay:1.6s">
+      <h2 style="font-family:'Fraunces',serif;font-size:1.5rem;color:var(--dark);margin-bottom:.8rem">?? Birthday Letter Sealed with Love</h2>
+      <div style="height:1px;background:linear-gradient(90deg,transparent,rgba(192,132,252,.3),transparent);margin:.8rem 0"></div>
+      <p style="font-size:.96rem;line-height:1.8;color:var(--mid);opacity:0;animation:fadeRise .6s ease forwards;animation-delay:2s">Today is all about you � your laughter, your warmth, and everything that makes you so special.</p>
+      <p style="font-size:.96rem;line-height:1.8;color:var(--mid);margin-top:.7rem;opacity:0;animation:fadeRise .6s ease forwards;animation-delay:2.4s">May this year bring joy beyond measure, adventures worth remembering, and all the things your heart desires.</p>
+      <p style="font-size:.96rem;line-height:1.8;color:var(--mid);margin-top:.7rem;opacity:0;animation:fadeRise .6s ease forwards;animation-delay:2.8s">Here's to a year filled with love, growth, and beautiful moments. ???</p>
+      <div style="height:1px;background:linear-gradient(90deg,transparent,rgba(192,132,252,.3),transparent);margin:.8rem 0"></div>
+      <div style="font-family:'Dancing Script',cursive;font-size:1.3rem;color:var(--pink)">?? Forever Friends, Happy Birthday!</div>
+    </div>
+    <div style="opacity:0;animation:fadeRise .7s ease forwards;animation-delay:3.2s">
+      <button id="replayBtn" class="btn-main btn-pink" onclick="replay()" style="padding:1rem 2.5rem;position:relative;overflow:hidden">
+        <span id="rIcon" style="display:inline-block">?</span> Experience Again ?
+        <span style="position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.15),transparent);animation:shimmer 2.5s ease-in-out infinite;animation-delay:4s"></span>
+      </button>
+      <p style="margin-top:.7rem;font-size:.8rem;color:var(--mid)">Go back to the beginning ??</p>
+    </div>
+  </div>
+</section>
+
+<script>
+// -- State --
+let cur = 0;
+const BG_LIGHT = [0, 2, 4];
+
+// -- Navigation --
+function goTo(n) {
+  document.getElementById('pg'+cur).classList.remove('active');
+  ['bg1','bg2','bg3','bg4','bg5'].forEach((id,i)=>{
+    document.getElementById(id).classList.toggle('show', i===n);
+  });
+  cur = n;
+  document.getElementById('pg'+cur).classList.add('active');
+  // nav dots
+  for(let i=0;i<5;i++){
+    const d=document.getElementById('d'+i);
+    d.className='nd '+(BG_LIGHT.includes(n)?'dark':'');
+    if(i===n) d.classList.add('on');
+  }
+  // back btn
+  const bb=document.getElementById('backBtn');
+  bb.className = n>0?'show':'';
+  if(BG_LIGHT.includes(n)) bb.classList.add('light');
+  // page-specific init
+  if(n===0) initP1();
+  if(n===4) initP5();
+}
+function goBack(){ if(cur>0) goTo(cur-1); }
+
+// -- Page 1: typewriter --
+let p1done=false;
+function initP1(){
+  if(p1done) return;
+  p1done=true;
+  const el=document.getElementById('nText');
+  const cu=document.getElementById('nCur');
+  el.textContent=''; cu.style.display='inline-block';
+  const name='Devendhu'; let i=0;
+  function type(){ if(i<name.length){el.textContent+=name[i++];setTimeout(type,90);}
+    else{setTimeout(()=>cu.style.display='none',1500); revMsgs();} }
+  setTimeout(type,900);
+}
+function revMsgs(){
+  document.querySelectorAll('.p1-msg').forEach((el,i)=>setTimeout(()=>el.classList.add('vis'),i*400));
+}
+
+// -- Page 2: particles --
+(function spawnP2(){
+  const colors=['#ff6b9d','#c084fc','#f4b740','#60a5fa','#86efac'];
+  const w=document.getElementById('pWrap');
+  for(let i=0;i<25;i++){
+    const p=document.createElement('div'); p.className='p2-particle';
+    const sz=Math.random()*8+4;
+    p.style.cssText=`width:${sz}px;height:${sz}px;background:${colors[~~(Math.random()*colors.length)]};left:${Math.random()*100}%;animation-duration:${Math.random()*12+8}s;animation-delay:${Math.random()*10}s;opacity:.6`;
+    w.appendChild(p);
+  }
+})();
+function tPill(el){ el.classList.toggle('on'); }
+
+// -- Page 3: flip cards --
+const flipped=[false,false,false];
+function flipC(i){
+  const el=document.getElementById('fc'+i);
+  el.classList.toggle('flipped');
+  flipped[i]=el.classList.contains('flipped');
+  const count=flipped.filter(Boolean).length;
+  flipped.forEach((f,j)=>document.getElementById('pd'+j).classList.toggle('done',f));
+  const h=document.getElementById('p3hint');
+  if(count===3){h.textContent='Amazing! All wishes revealed! ???';h.style.color='var(--pink)';h.style.fontWeight='700';}
+  else h.textContent=`${count} of 3 wishes unlocked! Keep going ??`;
+}
+
+// -- Page 4: stars --
+(function spawnStars(){
+  const w=document.getElementById('sWrap');
+  for(let i=0;i<60;i++){
+    const s=document.createElement('div');
+    const sz=Math.random()*3+1;
+    s.style.cssText=`position:absolute;border-radius:50%;width:${sz}px;height:${sz}px;background:#fff;left:${Math.random()*100}%;top:${Math.random()*100}%;animation:twinkle ${Math.random()*3+2}s ease-in-out ${Math.random()*4}s infinite`;
+    w.appendChild(s);
+  }
+})();
+
+// -- Page 5: confetti + typewriter --
+(function spawnConfetti(){
+  const cols=['#ff6b9d','#c084fc','#f4b740','#86efac','#7dd3fc','#fca5a5','#fbcfe8'];
+  const shapes=['50%','4px','8px'];
+  const w=document.getElementById('c5Wrap');
+  for(let i=0;i<50;i++){
+    const p=document.createElement('div');
+    const pw=Math.random()*10+5, ph=Math.random()*10+5;
+    p.style.cssText=`position:absolute;width:${pw}px;height:${ph}px;background:${cols[~~(Math.random()*cols.length)]};left:${Math.random()*100}%;border-radius:${shapes[~~(Math.random()*3)]};animation:confettiFall ${Math.random()*6+4}s ${Math.random()*6}s linear infinite;opacity:0`;
+    w.appendChild(p);
+  }
+})();
+let p5done=false;
+function initP5(){
+  if(p5done) return; p5done=true;
+  const el=document.getElementById('n5Text');
+  const cu=document.getElementById('n5Cur');
+  el.textContent=''; cu.style.display='inline-block';
+  const name='Devendhu'; let i=0;
+  function type(){ if(i<name.length){el.textContent+=name[i++];setTimeout(type,85);}
+    else setTimeout(()=>cu.style.display='none',1800); }
+  setTimeout(type,700);
+}
+function replay(){
+  p1done=false; p5done=false;
+  document.querySelectorAll('.p1-msg').forEach(e=>e.classList.remove('vis'));
+  document.getElementById('nText').textContent='';
+  const cu=document.getElementById('nCur'); cu.style.display='inline-block';
+  const ri=document.getElementById('rIcon');
+  ri.style.animation='none'; requestAnimationFrame(()=>requestAnimationFrame(()=>ri.style.animation='spinR .8s ease'));
+  setTimeout(()=>goTo(0),400);
+}
+
+// -- Page 1 confetti --
+(function spawnCDots(){
+  const cols=['#ff6b9d','#c084fc','#f4b740','#86efac','#7dd3fc','#fca5a5'];
+  const w=document.getElementById('cWrap');
+  for(let i=0;i<30;i++){
+    const d=document.createElement('div'); const sz=Math.random()*14+6;
+    d.style.cssText=`position:absolute;width:${sz}px;height:${sz}px;background:${cols[~~(Math.random()*cols.length)]};left:${Math.random()*100}%;animation:floatUp ${Math.random()*12+8}s ${Math.random()*10}s linear infinite;border-radius:${Math.random()>.5?'50%':'4px'};opacity:0`;
+    w.appendChild(d);
+  }
+})();
+
+// Init page 1 on load
+initP1();
+</script>
+</body>
+</html>
